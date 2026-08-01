@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chyanne Eyde — Portfolio</title>
+  <link rel="icon" href="favicon.svg?v=1" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
+  <link rel="icon" href="favicon.ico" sizes="any">
+
+  <!-- Phase 2.3 note: these fonts load from Google's servers for now so you can see
+       the real look immediately. The guide's self-hosting step is just: download these
+       two families into a /fonts folder and swap this <link> for @font-face rules. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip link: first thing a keyboard/screen-reader user hits; lets them jump
+       past the nav straight to content. It's an href/id pair, same mechanic as your
+       nav anchors — just for accessibility. Hidden until focused (see CSS). -->
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <!-- ===================== NAV (persistent on every page) ===================== -->
+  <nav class="site-nav">
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#work">work</a></li>
+      <li><a href="#contact">contact</a></li>
+      <li>
+        <!-- Icon-only light/dark toggle. Static for now — Phase 3 wires the click
+             (swap the icon, flip data-theme on <html>, remember the choice).
+             No JavaScript yet. -->
+        <button class="mode-toggle" type="button" aria-label="Switch to dark mode">&#9728;</button>
+      </li>
+    </ul>
+  </nav>
+
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <!-- Two aligned bands on a 1.8fr / 1fr grid. Row 1: intro + portrait.
+         Row 2: bio + curiosity. -->
+    <section class="hero frame" id="about">
+
+      <!-- Band 1, left -->
+      <div class="intro">
+        <div class="name-block">
+          <h1>Chyanne Eyde</h1>
+          <p class="headline">I help organizations make and <em> implement </em> hard decisions.</p>
+        </div>
+        <!-- margin-top:auto in the CSS pins this to the bottom of the band,
+             so its bottom lines up with the bottom of the photo. -->
+        <p class="contact-affordance">
+          <!-- Forwarding address, not a personal inbox (per the spec). Set up
+               forwarding, then replace this. -->
+
+          <!-- FOR JUST ONE LINE: <a href="mailto:hello@chyanneeyde.com">get in touch &rarr;</a> -->
+
+          <!-- FOR CONTACT ICONS (PREFERRED)-->
+           <div class="contact-affordance">
+              <a href="https://www.linkedin.com/in/chy-eyde" class="social-link" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a href="https://github.com/chy-eyde" class="social-link" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.5 11.5 0 013-.405c1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+              <a href="mailto:hello@yourdomain.com" class="social-link" aria-label="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </a>
+            </div>
+        </p>
+      </div>
+
+      <!-- Band 1, right: circular portrait.
+           Placeholder for now. Phase 5 swaps this whole block for:
+           <img class="portrait" src="images/portrait.jpg" alt="Chyanne Eyde"> -->
+      <div class="portrait portrait--placeholder" aria-hidden="true">CE</div>
+
+      <!-- Band 2, left: fixed-height bio. Copy may end short of the block — the
+           leftover space is fine by design. "problems" is wrapped so Phase 3's
+           hand-drawn oval has something to target. -->
+      <div class="bio">
+        <p>
+          Pairing data analysis and deft stakeholder engagement, I aim to solve complex problems for complex organizations. I have built the analytical and operational
+          scaffolding behind big civic decisions that impact city budgets, school boundaries, and major capital initiatives. I'm drawn to messy, high-stakes
+          <span class="circled">problems</span> where data, politics, and people all
+          have to be reconciled at once. I work to establish systems the
+          next person can actually run.
+        </p>
+      </div>
+
+      <!-- Band 2, right: heading stays put; only the list scrolls beneath it. -->
+      <aside class="latest" aria-label="Latest Updates">
+        <h2 class="latest-label">latest updates</h2>
+        <div class="latest-scroll">
+          <ul>
+            <li><span class="latest-label latest-date">June 2026</span>Presented to regional planners on best practices in stakeholder engagement</li>
+            <li><span class="latest-label latest-date">Feb 2026</span>Facilitated a <a href="https://dc.aiga.org/event/reframing-failure-keeping-humans-centered-within-human-centered-design/" class="text-link">salon</a> on human centered design for DC's AIGA, a community of designers</li> 
+            <li><span class="latest-label latest-date">Feb 2026</span>Appeared on the podcast GovLove, Ep #715 <a href="https://elgl.org/podcast-how-not-to-engage-historically-marginalized-communities-with-chyanne-eyde-washington-dc/" class="text-link">How Not to Engage Historically Marginalized Communities</a></li>
+            <li><span class="latest-label latest-date">Aug 2025</span>Led the best attended unconference session at Civic Spark Toronto titled <a href="https://civic-spark.com" class="text-link">All the Ways I've Failed to Engage Marginalized Communities</a> </li>
+            <li><span class="latest-label latest-date">Jan 2026</span>Plain-language policy writing</li>
+            <li><span class="latest-label latest-date">Jan 2026</span>What "reproducible" means for a small gov team</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Phase 3 signature element (scroll cue: hand-drawn oval + squiggly arrow +
+           "scroll") gets added here. Left out for now so the static page stays clean. -->
+
+    </section>
+
+    <!-- ===================== SELECTED WORK ===================== -->
+    <section class="work frame" id="work">
+      <h2 class="section-heading">selected work</h2>
+      <p class="section-subhead">Select a problem and see the solution I implemented</p>
+      <!-- flex-wrap + centered justification gives the 3-then-2 layout: the two
+           left-over cards center under the first row automatically. -->
+      <ul class="card-grid">
+                <li>
+          <a class="card" href="wireframe-project-detail.html">
+            <span class="card-thumb" aria-hidden="true"></span>
+            <span class="card-title">An agency forgot how to do its projections</span>
+            <span class="card-sub">Built and documented a system that delivered three years of 99%+ accuracy</span>
+            <span class="flyout" aria-hidden="true">
+              <b>challenge</b> forecasts the budget process could trust<br>
+              <b>tools</b> R, reproducible workflows, UX testing<br>
+              <b>outcome</b> stronger footing in budget negotiations
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="wireframe-project-detail.html">
+            <span class="card-thumb" aria-hidden="true"></span>
+            <span class="card-title">A public service is launching on an impossible timeline</span>
+            <span class="card-sub">Coordinated the opening of a new high school in 18 months within a $4M budget</span>
+            <span class="flyout" aria-hidden="true">
+              <b>challenge</b> stand up facilities, staffing, and ops at once<br>
+              <b>tools</b> cross-functional program management<br>
+              <b>outcome</b> opened on time and on budget
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="wireframe-project-detail.html">
+            <span class="card-thumb" aria-hidden="true"></span>
+            <span class="card-title">Social workers are burdened by data entry</span>
+            <span class="card-sub">Rebuilt an app for 3,000+ families using human-centered design</span>
+            <!-- Phase 3 reveals this on hover/focus. Hidden for now. -->
+            <span class="flyout" aria-hidden="true">
+              <b>challenge</b> balancing community priorities against enrollment trends<br>
+              <b>tools</b> R, ArcGIS, stakeholder engagement<br>
+              <b>outcome</b> adopted by city leadership
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="wireframe-project-detail.html">
+            <span class="card-thumb" aria-hidden="true"></span>
+            <span class="card-title">A politically sensitive school closure may need to happen</span>
+            <span class="card-sub">Human-centered redesign for 3,000+ families</span>
+            <span class="flyout" aria-hidden="true">
+              <b>challenge</b> a system social workers couldn't work in<br>
+              <b>tools</b> QuickBase, human-centered design<br>
+              <b>outcome</b> teams could track and hit their goals
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="wireframe-project-detail.html">
+            <span class="card-thumb" aria-hidden="true"></span>
+            <span class="card-title">Transparency is lacking in a crucial public system</span>
+            <span class="card-sub">Built a transparency tool viewed by 100K+ in one year &middot; featured in the Washington Post</span>
+            <span class="flyout" aria-hidden="true">
+              <b>challenge</b> make agency data legible to the public<br>
+              <b>tools</b> Tableau<br>
+              <b>outcome</b> 100K+ views, press pickup
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== CLOSING CONTACT ===================== -->
+    <section class="contact frame" id="contact">
+      <div class="contact-card">
+        <h2 class="section-heading">Sounds useful? Reach out</h2>
+        <p class="section-subhead">I'm always happy to hear from someone looking to partner on a problem, either professionally or informally</p>
+        <p class="contact-links">
+          <a href="mailto:hello@chyanneeyde.com">email</a>
+          <a href="https://www.linkedin.com/in/chy-eyde">LinkedIn</a>
+          <!-- Drop your PDF in the project folder and this just works. -->
+          <a href="resume.pdf">resume</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Chyanne Eyde</p>
+  </footer>
+
+</body>
+</html>

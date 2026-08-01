@@ -1,0 +1,394 @@
+/* =============================================================================
+   Chyanne Eyde — portfolio styles
+   Phase 2 deliverable: static layout + type. No JavaScript.
+   Everything you'd want to retune lives in the :root block below.
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   1. DESIGN SYSTEM  (this is your would-be design-system.md, in code)
+   Change a value here and it ripples through the whole site. That's the payoff
+   of CSS variables — one source of truth for color, type, and spacing.
+   ----------------------------------------------------------------------------- */
+:root {
+  /* --- Palette: warm paper + evergreen "ink" accent (light mode is the priority) --- */
+  --color-bg:        #F4EEE3;   /* warm paper — the page */
+  --color-surface:   #FBF7EF;   /* slightly lifted — cards */
+  --color-text:      #24211B;   /* warm near-black — body text */
+  --color-muted:     #7C7362;   /* captions, descriptors, secondary text */
+  --color-accent:    #1E5A50;   /* evergreen ink — links, the future pen stroke */
+  --color-accent-strong: #123F38; /* hover / pressed */
+  --color-line:      #E2D9C8;   /* hairlines and dividers */
+  --color-link-hover: #2563EB;  /* bright blue — dramatic hover for inline text links */
+
+  /* --- Dark-mode counterparts. Unused until Phase 3 wires the toggle, but
+         defined now so the switch is a one-line flip, not a rebuild. --- */
+  /* --- Type --- */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;  /* name, headings */
+  --font-body:    "Work Sans", system-ui, -apple-system, sans-serif; /* everything else */
+
+  /* Fluid type scale: clamp(MIN, PREFERRED, MAX) grows with the viewport,
+     then stops. No media queries needed for the headline to behave. */
+  --size-name:     clamp(2.4rem, 5vw, 3.4rem);
+  --size-headline: clamp(1.3rem, 2.6vw, 1.85rem);
+  --size-h2:       clamp(1.25rem, 2.2vw, 1.6rem);
+  --size-body:     1.0625rem;
+  --size-med:      0.9rem;
+  --size-small:    0.8125rem;
+
+  /* --- Spacing scale: a small, fixed set of steps keeps rhythm consistent --- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-almostlg: 19px; /*for latest updates headline so it lines up with latest updates */
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* --- Layout --- */
+  --content-width: 880px;   /* the "generous margins" come from capping width
+                               and letting the browser auto-center the rest */
+  --radius: 4px;
+}
+
+/* Dark-mode values live here, activated by data-theme="dark" on <html> in Phase 3. */
+[data-theme="dark"] {
+  --color-bg:        #1A1815;
+  --color-surface:   #232019;
+  --color-text:      #ECE5D8;
+  --color-muted:     #A79E8C;
+  --color-accent:    #6FC0B0;
+  --color-accent-strong: #8FD3C5;
+  --color-line:      #38332A;
+  --color-link-hover: #5B9DF9;  /* lighter blue for AA contrast on dark bg */
+}
+
+/* -----------------------------------------------------------------------------
+   2. BASE
+   ----------------------------------------------------------------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }        /* smooth jumps for the #anchor nav */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-accent-strong); }
+
+/* Links inline within body copy (as opposed to nav/social/card links) get an
+   underline plus a bright, conventional-blue hover so they read as "click me"
+   against surrounding text. */
+.text-link { text-decoration: underline; }
+.text-link:hover { color: var(--color-link-hover); }
+
+/* Visible focus ring for keyboard users — a quality-floor accessibility item.
+   :focus-visible shows it for keyboard focus but not mouse clicks. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect the OS "reduce motion" setting (you'll lean on this hard in Phase 3). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* The shared width constraint. Applied to each section via class="... frame".
+   On a wide screen the leftover space becomes your generous outer margins;
+   on a narrow one it collapses to comfortable padding. Flexible by design,
+   so the Phase 8 mobile pass is an adjustment, not a rewrite. */
+.frame {
+  width: min(var(--content-width), 100% - 2 * var(--space-xl));
+  margin-inline: auto;
+}
+
+/* Skip link: off-screen until it receives keyboard focus, then it appears. */
+.skip-link {
+  position: absolute;
+  left: var(--space-md);
+  top: -3rem;
+  background: var(--color-surface);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  transition: top 0.15s;
+  z-index: 10;
+}
+.skip-link:focus { top: var(--space-md); }
+
+/* -----------------------------------------------------------------------------
+   3. NAV
+   ----------------------------------------------------------------------------- */
+.site-nav {
+  padding: var(--space-lg) var(--space-md);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;   /* centered link group, per the spec */
+  align-items: center;
+  gap: var(--space-2xl);
+}
+.nav-links a {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--size-med);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.nav-links a:hover { border-bottom-color: var(--color-accent); }
+
+.mode-toggle {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* -----------------------------------------------------------------------------
+   4. HERO — two aligned bands
+   ----------------------------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;   /* wide left / narrow right */
+  gap: var(--space-xl) var(--space-2xl);   /* row gap / column gap */
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+/* Band 1, left. A flex column so the contact line can be pushed to the bottom. */
+.intro { display: flex; flex-direction: column; }
+
+.name-block h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--size-name);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  /*font-style: italic;                 /* a little editorial voice */
+  font-size: var(--size-headline);
+  color: var(--color-muted);
+  line-height: 1.3;
+  margin-top: var(--space-md);
+  max-width: 60ch;                    /* keeps it to ~two lines */
+}
+/* THE PIN: margin-top:auto shoves this to the bottom of the flex column, which
+   the grid has stretched to the band's height — so its bottom meets the photo's. */
+.contact-affordance {
+  padding-top: var(--space-sm);
+  display: flex;
+  gap: var(--space-sm);   /* space between the three icons */
+}
+.social-link {
+  display: inline-flex;   /* shrink the link tight around the icon */
+  color: var(--color-accent);
+}
+.social-link:hover { color: var(--color-accent-strong); }
+.social-link svg {
+  width: 32px; height: 32px;
+  fill: currentColor;     /* icon inherits the link's color, so hover works */
+  display: block;
+}
+
+/* Band 1, right: circular portrait. border-radius:50% on a square = a circle. */
+.portrait {
+  width: 204px; height: 204px;
+  border-radius: 50%;
+  justify-self: center;               /* center it in the narrow column */
+  align-self: start;
+  object-fit: cover;                  /* matters once it's a real <img> */
+}
+.portrait--placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-muted);
+}
+
+:root {
+  --scroll-height-both: 250px;   /* bio + latest box share this */
+}
+
+/* Band 2, left: fixed-height bio block. The fixed height is what lets the bio
+   and the latest box start AND end together regardless of copy length. */
+.bio {
+  height: var(--scroll-height-both); /*controls the height of the section, but not the scroll box */ 
+  max-width: 44ch;
+}
+.bio p { font-size: var(--size-body); }
+
+/* The word Phase 3's oval will wrap. Left plain for now. */
+.circled { white-space: nowrap; }
+
+/* Band 2, right: independent scroll container — same fixed height as the bio. */
+
+/* Shared text style: the "latest updates" heading and the in-list date both
+   use it, so they stay visually identical without duplicating the rule. */
+.latest-label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--size-med);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.latest h2 {
+  padding: 0 var(--space-almostlg);
+}
+
+.latest-date {
+  margin-right: var(--space-xs);
+}
+
+.latest-scroll {
+  height: var(--scroll-height-both);
+  overflow-y: scroll;                 /* scrolls on its own, not the page */
+  background: transparent; /* var(--color-surface); */
+  border: none; /* 1px solid var(--color-line);*/
+  /* border-radius: var(--radius); */
+  scrollbar-width: thin;                          /* merged in */
+  scrollbar-color: #000 transparent;  /* merged in */
+  direction: rtl;                                 /* merged in */
+  padding: 0 var(--space-md);
+  }
+.latest-scroll > *                    { direction: ltr; }
+.latest-scroll::-webkit-scrollbar       { width: 2px; }
+.latest-scroll::-webkit-scrollbar-track { background: transparent; }
+.latest-scroll::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 3px;
+}
+
+.latest-scroll ul { list-style: none; }
+.latest-scroll li {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--color-line);
+}
+.latest-scroll li:first-child { border-top: none; }
+
+/* -----------------------------------------------------------------------------
+   5. SELECTED WORK — 3-then-2 centered card grid
+   ----------------------------------------------------------------------------- */
+.work { padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); }
+
+/* Shared h2/p pair: used here and by .contact-card (section 6) so both
+   "heading + subhead" blocks stay in sync — same gaps, one place to retune. */
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--size-h2);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.section-subhead {
+  text-align: center;
+  max-width: 60ch;          /* keeps the line length readable */
+  margin: 0 auto var(--space-lg);  /* auto L/R centers it; bottom = gap to next block */
+  color: var(--color-muted);
+}
+
+/* flex-wrap + center = the partial second row centers itself. If you used CSS
+   Grid here the two leftover cards would left-align; flex is the deliberate choice. */
+.card-grid {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+.card-grid > li { display: flex; }     /* let each card stretch to equal height */
+
+.card {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--color-text);
+  position: relative;                  /* anchor for the Phase 3 flyout */
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+
+.card-thumb {
+  height: 120px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-sm);
+}
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+.card-sub { font-size: var(--size-small); color: var(--color-muted); }
+
+/* Flyout hidden for now. Phase 3 reveals it on :hover and :focus-within. */
+.flyout { display: none; }
+
+/* -----------------------------------------------------------------------------
+   6. CLOSING CONTACT
+   ----------------------------------------------------------------------------- */
+.contact { padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); }
+
+.contact-card {
+  margin-inline: auto;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+}
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+.contact-links a {
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--color-accent);
+}
+
+/* -----------------------------------------------------------------------------
+   7. FOOTER
+   ----------------------------------------------------------------------------- */
+.site-footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  border-top: 1px solid var(--color-line);
+  font-size: var(--size-small);
+  color: var(--color-muted);
+}
