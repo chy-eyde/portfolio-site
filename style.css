@@ -19,6 +19,8 @@
   --color-accent-strong: #123F38; /* hover / pressed */
   --color-line:      #E2D9C8;   /* hairlines and dividers */
   --color-link-hover: #2563EB;  /* bright blue — dramatic hover for inline text links */
+  --scrollbar-thumb: #000;
+  --scrollbar-track: transparent;
 
   /* --- Dark-mode counterparts. Unused until Phase 3 wires the toggle, but
          defined now so the switch is a one-line flip, not a rebuild. --- */
@@ -60,6 +62,7 @@
   --color-accent-strong: #8FD3C5;
   --color-line:      #38332A;
   --color-link-hover: #5B9DF9;  /* lighter blue for AA contrast on dark bg */
+  --scrollbar-thumb: #FF69B4; /* hot pink */
 }
 
 /* -----------------------------------------------------------------------------
@@ -271,7 +274,7 @@ button:focus-visible {
   border: none; /* 1px solid var(--color-line);*/
   /* border-radius: var(--radius); */
   scrollbar-width: thin;                          /* merged in */
-  scrollbar-color: #000 transparent;  /* merged in */
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);  /* merged in */
   direction: rtl;                                 /* merged in */
   padding: 0 var(--space-md);
   }
@@ -279,7 +282,7 @@ button:focus-visible {
 .latest-scroll::-webkit-scrollbar       { width: 2px; }
 .latest-scroll::-webkit-scrollbar-track { background: transparent; }
 .latest-scroll::-webkit-scrollbar-thumb {
-  background: #000;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
