@@ -356,9 +356,28 @@ button:focus-visible {
 }
 .card-sub { font-size: var(--size-small); color: var(--color-muted); }
 
-/* Flyout hidden for now. Phase 3 reveals it on :hover and :focus-within. */
-.flyout { display: none; }
+/* Flyout shows when user hovers over a work sample card */
+.flyout {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  text-align: left;
+  font-size: var(--size-small);
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
 
+.card:hover .flyout,
+.card:focus-within .flyout {
+  display: flex;
+  opacity: 1;
+}
 /* -----------------------------------------------------------------------------
    6. CLOSING CONTACT
    ----------------------------------------------------------------------------- */
