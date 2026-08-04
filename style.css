@@ -19,6 +19,7 @@
   --color-accent-strong: #123F38; /* hover / pressed */
   --color-line:      #E2D9C8;   /* hairlines and dividers */
   --color-link-hover: #2563EB;  /* bright blue — dramatic hover for inline text links */
+  --color-cue:       #5C9A0B;   /* lime — the hand-drawn pen stroke */
   --scrollbar-thumb: #000;
   --scrollbar-track: transparent;
 
@@ -62,6 +63,7 @@
   --color-accent-strong: #8FD3C5;
   --color-line:      #38332A;
   --color-link-hover: #5B9DF9;  /* lighter blue for AA contrast on dark bg */
+  --color-cue:       #A3E635;   /* lime can go properly electric against near-black */
   --scrollbar-thumb: #FF69B4; /* hot pink */
 }
 
@@ -174,10 +176,25 @@ button:focus-visible {
   gap: var(--space-xl) var(--space-2xl);   /* row gap / column gap */
   padding-top: var(--space-2xl);
   padding-bottom: var(--space-2xl);
+  position: relative; /*added for animations */
 }
 
 /* Band 1, left. A flex column so the contact line can be pushed to the bottom. */
 .intro { display: flex; flex-direction: column; }
+
+.hero-cue {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;   /* never blocks clicks on the real content underneath */
+  overflow: visible;      /* the flourish/arrow can extend past the hero's own box */
+}
+.hero-cue path {
+  fill: none;
+  stroke: var(--color-cue, #5C9A0B);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 .name-block h1 {
   font-family: var(--font-display);
